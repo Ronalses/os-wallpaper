@@ -24,7 +24,18 @@ const search = async (keyword, page, perPage) => {
     }
 }
 
+const getPhoto = async (id, width, height, rectangle) => {
+    try {
+        let data = await unsplash.photos.getPhoto(id, width, height, rectangle)
+        let photo = await toJson(data)
+        return photo
+    } catch (error) {
+        return error
+    }
+}
+
 module.exports = {
     search,
-    listPhotos
+    listPhotos,
+    getPhoto
 }

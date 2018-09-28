@@ -25,6 +25,11 @@ body{
     height: 250px;
 }
 
+.photo:hover{
+    opacity: 0.5;
+    cursor: pointer;
+}
+
 .photo img{
     vertical-align: middle;
     object-fit: cover;
