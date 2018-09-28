@@ -2,7 +2,7 @@ const unsplash = require('./unsplash')
 const { perPage } = require('../config')
 
 /* Current page for load photos */
-let currentPage = 1
+let currentPage = Math.floor((Math.random() * 100) + 1)
 let isLoading = false
 
 /* Load photos */
