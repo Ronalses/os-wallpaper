@@ -6,5 +6,6 @@ module.exports = {
     unsplash: {
         applicationId: pss.env.UNSPLASH_APPLICATION_ID,
         secret: pss.env.UNSPLASH_SECRET
-    }
+    },
+    perPage: 9
 }
