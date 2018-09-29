@@ -32,10 +32,21 @@ document.addEventListener('click', async (event) => {
     let idPhoto = event.path[1].id
     try {
         let photo = await unsplash.getPhoto(idPhoto)
-        console.log(photo)
+        let photoModal = document.getElementById('imgModal').src = photo.urls.small
+        document.getElementById('modal').style.display = 'block'
     } catch (error) {
         console.log(photo)
     }
+})
+
+/* Listen on set wallpaper */
+document.getElementById('modal-ok').addEventListener('click', () => {
+    console.log('Aceptado')
+})
+
+/* Close modal */
+document.getElementById('modal-cancel').addEventListener('click', () => {
+    document.getElementById('modal').style.display = 'none'
 })
 
 /* Create html whit the photos */
