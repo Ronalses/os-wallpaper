@@ -1,15 +1,20 @@
 const unsplash = require('./unsplash')
 const { perPage } = require('../config')
+const wallpaper = require('./wallpaper')
 
 /* Current page for load photos */
 let currentPage = Math.floor((Math.random() * 100) + 1)
 let isLoading = false
+
+/* This is not good idea */
+let currentImgSelected = null
 
 /* Load photos */
 async function loadPhotos() {
     loading(true)
     try {
         let photos = await unsplash.listPhotos(currentPage, perPage)
+
         console.log(photos)
         /* Set photos in html */
         document.getElementById('photos-container').innerHTML += createHtmlPhotos(photos)
@@ -30,23 +35,22 @@ document.addEventListener('click', async (event) => {
     event.preventDefault()
 
     let idPhoto = event.path[1].id
+    
+    if (currentImgSelected && currentImgSelected.id === idPhoto) {
+        console.log('ya esta cargado')
+        document.getElementById('modal').style.display = 'block'
+        return
+    }
+
     try {
         let photo = await unsplash.getPhoto(idPhoto)
-        let photoModal = document.getElementById('imgModal').src = photo.urls.small
-        document.getElementById('modal').style.display = 'block'
+        let result = await wallpaper.set(photo.urls.regular)
+        alert('listo')
+
     } catch (error) {
-        console.log(photo)
+        console.log(error)
+        alert('Ocurrio un error :C')
     }
-})
-
-/* Listen on set wallpaper */
-document.getElementById('modal-ok').addEventListener('click', () => {
-    console.log('Aceptado')
-})
-
-/* Close modal */
-document.getElementById('modal-cancel').addEventListener('click', () => {
-    document.getElementById('modal').style.display = 'none'
 })
 
 /* Create html whit the photos */
